@@ -38,8 +38,21 @@ async function run() {
         const result = await instructorsCollection.find().toArray();
         res.send(result);
     })
+    app.get('/allusers',async(req,res)=>{
+        const result = await usersCollection.find().toArray();
+        res.send(result);
+    })
+    app.get('/users', async(req,res)=>{
+        const email = req.query.email;
+        console.log(email);
+        const query = { email: email }
+        const result = await usersCollection.findOne(query);
+        console.log(result);
+        res.send(result);
+    })
     app.post('/users', async (req, res) => {
         const user = req.body;
+        console.log(user);
         const query = { email: user.email }
         const existingUser = await usersCollection.findOne(query);
   
